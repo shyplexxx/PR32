@@ -17,10 +17,33 @@ namespace PR32
         public Product()
         {
             InitializeComponent();
-            dataGridView1.ContextMenuStrip = contextMenuProduct;
-            dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
+            
+            if (SessionManager.IsGuest)
+            {
+                
+            }
+            else
+            {
+                dataGridView1.ContextMenuStrip = contextMenuProduct;
+                dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
+            }
+            UpUser();
+            
         }
+       
 
+        private void UpUser()
+        {
+            if (SessionManager.IsGuest)
+            {
+                labelUserInfo.Text = $"Гость - время - {DateTime.Now.ToString("dd.MM.yyyy")}";
+            }
+            else
+            {
+                labelUserInfo.Text = SessionManager.CurrentUserFullName; 
+            }
+
+        }
         string server = Settings.Default.host;
         string user = Settings.Default.uid;
         string password = Settings.Default.pwd;

@@ -111,7 +111,7 @@ namespace PR32
             this.Hide();
             Product mainForm = new Product();
             mainForm.ShowDialog();
-            this.Show();
+            this.Close();
             ResetForm();
 
 

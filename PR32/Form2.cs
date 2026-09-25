@@ -145,7 +145,7 @@ namespace PR32
                 Product mainForm = new Product();
                 mainForm.ShowDialog();
 
-                this.Show(); // Возврат к окну входа после закрытия главного экрана
+                this.Close(); // Возврат к окну входа после закрытия главного экрана
                 ResetForm();
             }
             else

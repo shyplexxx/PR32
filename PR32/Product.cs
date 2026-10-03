@@ -1,14 +1,16 @@
-﻿using PR32.Properties;
+﻿using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
+using PR32.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace PR32
 {
@@ -28,7 +30,8 @@ namespace PR32
                 dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
             }
             UpUser();
-            
+            dataGridView1.RowTemplate.Height = 50;
+
         }
        
 
@@ -56,12 +59,19 @@ namespace PR32
 
         private void Product_Load(object sender, EventArgs e)
         {
-            string strCmd = @"SELECT ProductID, ProductArticle, ProductName, ProductUnit, ProductCost, ProductMaxSale, ProductManufacture, ProductSypplier, ProductCategory, ProductNowSale, ProductCountWH, ProductDesk, ProductImage FROM db22.product;";
+            
             FillDataGrid(strCmd);
+            dataGridView1.RowTemplate.Height = 50;
+            comboBox1.SelectedIndex = 0;
+
 
         }
+
+
         public void FillDataGrid(string strCmd)
         {
+
+            
             dataGridView1.Columns.Clear();
             using(MySqlConnection con = new MySqlConnection(connStr))
             {
@@ -83,7 +93,7 @@ namespace PR32
             dataGridView1.Columns.Add(imageColumn);
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.Columns["ProductImage"].Visible = false;
-            dataGridView1.RowTemplate.Height = 152;
+
 
             foreach(DataGridViewRow row in dataGridView1.Rows )
             {
@@ -109,6 +119,89 @@ namespace PR32
                 dataGridView1.Rows[e.RowIndex].Selected = true;
 
                 SessionManager.RegisterActivity(); // Сброс таймера бездействия
+            }
+        }
+
+
+        private void MaxOrMin(string ss)
+        {
+            strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID ORDER BY p.ProductCost {ss} LIMIT {off}, 25;";
+            FillDataGrid(strCmd);
+        }
+        int click = 1;
+        string strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID LIMIT 0, 25;";
+        int off = 0;
+        string sortOrder = "asc";
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(off > 0)
+            {
+                off = off - 25;
+                strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID LIMIT {off}, 25;";
+                FillDataGrid(strCmd);
+                MaxOrMin(sortOrder);
+
+            }
+            else
+            {
+                return;
+            }
+            click--;
+            label4.Text = Convert.ToString(click);
+            button1.Enabled = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            
+                off = off + 25;
+                strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID LIMIT {off}, 25;";
+                FillDataGrid(strCmd);
+                click++;
+                label4.Text = Convert.ToString(click);
+                MaxOrMin(sortOrder);
+                if (dataGridView1.RowCount == 0)
+                {
+                    off = off - 25;
+                    strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID LIMIT {off}, 25;";
+                FillDataGrid(strCmd);
+                    click--;
+                    label4.Text = Convert.ToString(click);
+                    MaxOrMin(sortOrder);
+                }
+            
+            
+            
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+        bool key = false;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            click = 1;
+
+            if (key == false)
+            {
+                click = 1;
+                label4.Text = Convert.ToString(click);
+                sortOrder = "asc";
+                off = 0;
+                 MaxOrMin(sortOrder);
+                 key = true;
+
+            }
+            else
+            {
+                click = 1;
+                label4.Text = Convert.ToString(click);
+                sortOrder = "desc";
+                off = 0;
+                MaxOrMin(sortOrder);
+                key = false;
             }
         }
     }

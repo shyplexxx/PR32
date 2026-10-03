@@ -242,8 +242,9 @@ namespace PR32
             failedAttempts = 0;
         }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 }

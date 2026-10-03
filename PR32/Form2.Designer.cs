@@ -56,6 +56,7 @@
             this.label5.Size = new System.Drawing.Size(190, 39);
             this.label5.TabIndex = 11;
             this.label5.Text = "Авторизация";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // textBoxPassword
             // 
@@ -63,11 +64,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPassword.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPassword.Location = new System.Drawing.Point(12, 191);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxPassword.Multiline = true;
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(382, 36);
             this.textBoxPassword.TabIndex = 15;
+            this.textBoxPassword.Text = "admin";
             // 
             // label2
             // 
@@ -89,11 +91,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxLogin.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLogin.Location = new System.Drawing.Point(12, 123);
-            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxLogin.Multiline = true;
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(382, 36);
             this.textBoxLogin.TabIndex = 13;
+            this.textBoxLogin.Text = "admin";
             // 
             // label1
             // 
@@ -115,7 +118,7 @@
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(153)))));
             this.btnLogin.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnLogin.Location = new System.Drawing.Point(12, 393);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(1);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(377, 43);
             this.btnLogin.TabIndex = 16;
@@ -126,7 +129,7 @@
             // pictureBoxCaptcha
             // 
             this.pictureBoxCaptcha.Location = new System.Drawing.Point(12, 243);
-            this.pictureBoxCaptcha.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.pictureBoxCaptcha.Margin = new System.Windows.Forms.Padding(1);
             this.pictureBoxCaptcha.Name = "pictureBoxCaptcha";
             this.pictureBoxCaptcha.Size = new System.Drawing.Size(156, 105);
             this.pictureBoxCaptcha.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -139,7 +142,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCaptcha.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxCaptcha.Location = new System.Drawing.Point(181, 267);
-            this.textBoxCaptcha.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxCaptcha.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxCaptcha.Multiline = true;
             this.textBoxCaptcha.Name = "textBoxCaptcha";
             this.textBoxCaptcha.Size = new System.Drawing.Size(213, 36);
@@ -165,7 +168,7 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(153)))));
             this.button2.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.Location = new System.Drawing.Point(12, 485);
-            this.button2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.button2.Margin = new System.Windows.Forms.Padding(1);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(377, 43);
             this.button2.TabIndex = 20;
@@ -180,7 +183,7 @@
             this.btnGuest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(153)))));
             this.btnGuest.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnGuest.Location = new System.Drawing.Point(12, 438);
-            this.btnGuest.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnGuest.Margin = new System.Windows.Forms.Padding(1);
             this.btnGuest.Name = "btnGuest";
             this.btnGuest.Size = new System.Drawing.Size(377, 43);
             this.btnGuest.TabIndex = 21;
@@ -210,7 +213,7 @@
             this.Controls.Add(this.label5);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация";

@@ -125,19 +125,19 @@ namespace PR32
 
         private void MaxOrMin(string ss)
         {
-            strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} ORDER BY p.ProductCost {ss} LIMIT {off}, 25;";
+            strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} ORDER BY p.ProductCost {ss} LIMIT {off}, 20;";
             FillDataGrid(strCmd);
         }
         int click = 1;
-        string strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID LIMIT 0, 25;";
+        string strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID LIMIT 0, 20;";
         int off = 0;
         string sortOrder = "asc";
         private void button2_Click(object sender, EventArgs e)
         {
             if(off > 0)
             {
-                off = off - 25;
-                strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} LIMIT {off}, 25;";
+                off = off - 20;
+                strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} LIMIT {off}, 20;";
                 FillDataGrid(strCmd);
                 MaxOrMin(sortOrder);
 
@@ -155,16 +155,16 @@ namespace PR32
         {
             
             
-                off = off + 25;
-                strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} LIMIT {off}, 25;";
+                off = off + 20;
+                strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} LIMIT {off}, 20;";
                 FillDataGrid(strCmd);
                 click++;
                 label4.Text = Convert.ToString(click);
                 MaxOrMin(sortOrder);
                 if (dataGridView1.RowCount == 0)
                 {
-                    off = off - 25;
-                    strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} LIMIT {off}, 25;";
+                    off = off - 20;
+                    strCmd = $"SELECT p.ProductID, p.ProductArticle, p.ProductName, p.ProductUnit, p.ProductCost, p.ProductMaxSale, p.ProductManufacture, s.SypplierName AS ProductSypplier, c.CategoryName AS ProductCategory, p.ProductNowSale, p.ProductCountWH, p.ProductDesk, p.ProductImage FROM db22.product p LEFT JOIN db22.sypplier s ON p.ProductSypplier = s.SypplierID LEFT JOIN db22.category c ON p.ProductCategory = c.CategoryID {filterCondition} {searchCondition} LIMIT {off}, 20;";
                 FillDataGrid(strCmd);
                     click--;
                     label4.Text = Convert.ToString(click);

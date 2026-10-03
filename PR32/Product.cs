@@ -111,14 +111,14 @@ namespace PR32
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // Проверяем, что нажали правой кнопкой мыши и попали по реальной строке, а не по шапке
+            
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
-                // Выделяем именно ту строку, по которой кликнули
+                
                 dataGridView1.ClearSelection();
                 dataGridView1.Rows[e.RowIndex].Selected = true;
 
-                SessionManager.RegisterActivity(); // Сброс таймера бездействия
+                SessionManager.RegisterActivity(); 
             }
         }
 
@@ -209,9 +209,9 @@ namespace PR32
         string searchCondition = "";
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            off = 0; // Сбрасываем счетчик страниц на 1
+            off = 0; 
 
-            // Меняем только текст фильтра в переменной
+
             if (comboBox1.SelectedIndex == 1)
                 filterCondition = "WHERE p.ProductNowSale >= 0 AND p.ProductNowSale < 10";
             else if (comboBox1.SelectedIndex == 2)
@@ -219,9 +219,8 @@ namespace PR32
             else if (comboBox1.SelectedIndex == 3)
                 filterCondition = "WHERE p.ProductNowSale >= 15";
             else
-                filterCondition = "WHERE p.ProductNowSale >= 0 AND p.ProductNowSale < 100"; // "Все диапазоны" — возвращает все как обычно
+                filterCondition = "WHERE p.ProductNowSale >= 0 AND p.ProductNowSale < 100"; 
 
-            // Запускаем дефолтный запрос с обновленным фильтром
             MaxOrMin(sortOrder);
         }
 
@@ -230,14 +229,13 @@ namespace PR32
             off = 0;
 
             if (!string.IsNullOrEmpty(textBox1.Text))
-            {
-                // Экранируем одинарные кавычки, чтобы защититься от ошибок в SQL, если пользователь их введет
+            {      
                 string safeText = textBox1.Text.Replace("'", "''");
                 searchCondition = $" AND INSTR(p.ProductName, '{safeText}') > 0";
             }
             else
             {
-                searchCondition = ""; // Если стёрли текст — поиск сбрасывается
+                searchCondition = ""; 
             }
 
             MaxOrMin(sortOrder);

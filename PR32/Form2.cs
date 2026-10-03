@@ -39,7 +39,7 @@ namespace PR32
             pictureBoxCaptcha.Visible = false;
             textBoxCaptcha.Visible = false;
 
-            // Настройка секундного таймера блокировки формы
+          
             loginBlockTimer.Interval = 1000;
             loginBlockTimer.Tick += LoginBlockTimer_Tick;
 
@@ -125,7 +125,7 @@ namespace PR32
             string login = textBoxLogin.Text.Trim();
             string password = textBoxPassword.Text.Trim();
 
-            // Если это повторная попытка — сначала строго валидируем CAPTCHA
+
             if (failedAttempts > 0)
             {
                 if (textBoxCaptcha.Text != currentCaptchaText)
@@ -138,14 +138,14 @@ namespace PR32
 
             if (TryAuthenticate(login, password))
             {
-                // Сброс состояния при успешном входе
+                
                 failedAttempts = 0;
                 this.Hide();
 
                 Product mainForm = new Product();
                 mainForm.ShowDialog();
 
-                this.Close(); // Возврат к окну входа после закрытия главного экрана
+                this.Close(); 
                 ResetForm();
             }
             else
@@ -155,7 +155,7 @@ namespace PR32
 
                 ShowCaptcha();
 
-                // Если пользователь ошибся уже при активной капче — блокируем на 10 секунд
+                
                 if (failedAttempts > 1)
                 {
                     BlockFormAfterFailedAttempt();
@@ -166,13 +166,13 @@ namespace PR32
 
         private bool TryAuthenticate(string login, string password)
         {
-            // Используем динамически собранную строку подключения
+            
             using (MySqlConnection conn = new MySqlConnection(GetConnectionString()))
             {
                 try
                 {
                     conn.Open();
-                    // Склеиваем фамилию, имя и отчество с помощью CONCAT, используя точные имена из вашей БД
+                    
                     string query = "SELECT CONCAT(UserSourname, ' ', UserName, ' ', UserPpatronymic) AS FullName " +
                                    "FROM user WHERE UserLogin = @login AND UserPassword = @password";
 
@@ -227,7 +227,7 @@ namespace PR32
                 loginBlockTimer.Stop();
                 btnLogin.Enabled = true;
                 btnGuest.Enabled = true;
-                ShowCaptcha(); // Перегенерируем капчу для безопасности
+                ShowCaptcha(); 
             }
         }
 

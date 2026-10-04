@@ -182,12 +182,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGuest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(153)))));
             this.btnGuest.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnGuest.Location = new System.Drawing.Point(12, 438);
+            this.btnGuest.Location = new System.Drawing.Point(14, 438);
             this.btnGuest.Margin = new System.Windows.Forms.Padding(1);
             this.btnGuest.Name = "btnGuest";
             this.btnGuest.Size = new System.Drawing.Size(377, 43);
             this.btnGuest.TabIndex = 21;
-            this.btnGuest.Text = "Войти как гостья";
+            this.btnGuest.Text = "Войти как гость";
             this.btnGuest.UseVisualStyleBackColor = false;
             this.btnGuest.Click += new System.EventHandler(this.btnGuest_Click);
             // 

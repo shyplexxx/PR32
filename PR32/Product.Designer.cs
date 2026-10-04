@@ -75,24 +75,24 @@
             this.редактироватьToolStripMenuItem,
             this.удалитьToolStripMenuItem});
             this.contextMenuProduct.Name = "contextMenuProduct";
-            this.contextMenuProduct.Size = new System.Drawing.Size(181, 76);
+            this.contextMenuProduct.Size = new System.Drawing.Size(206, 100);
             // 
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(205, 32);
             this.добавитьToolStripMenuItem.Text = "Добавить";
             // 
             // редактироватьToolStripMenuItem
             // 
             this.редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
-            this.редактироватьToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.редактироватьToolStripMenuItem.Size = new System.Drawing.Size(205, 32);
             this.редактироватьToolStripMenuItem.Text = "Редактировать";
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(205, 32);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             // 
             // label1
@@ -101,7 +101,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(649, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 32);
+            this.label1.Size = new System.Drawing.Size(133, 38);
             this.label1.TabIndex = 2;
             this.label1.Text = "Товары";
             // 
@@ -111,7 +111,7 @@
             this.labelUserInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelUserInfo.Location = new System.Drawing.Point(20, 60);
             this.labelUserInfo.Name = "labelUserInfo";
-            this.labelUserInfo.Size = new System.Drawing.Size(0, 20);
+            this.labelUserInfo.Size = new System.Drawing.Size(0, 25);
             this.labelUserInfo.TabIndex = 3;
             // 
             // label2
@@ -120,7 +120,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(20, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(186, 20);
+            this.label2.Size = new System.Drawing.Size(219, 25);
             this.label2.TabIndex = 4;
             this.label2.Text = "В системе работает:";
             // 
@@ -150,7 +150,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(12, 536);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 20);
+            this.label3.Size = new System.Drawing.Size(115, 25);
             this.label3.TabIndex = 9;
             this.label3.Text = "Страница:";
             // 
@@ -160,7 +160,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(102, 536);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(18, 20);
+            this.label4.Size = new System.Drawing.Size(24, 25);
             this.label4.TabIndex = 10;
             this.label4.Text = "1";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -188,7 +188,7 @@
             "15% и более"});
             this.comboBox1.Location = new System.Drawing.Point(1128, 88);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(268, 28);
+            this.comboBox1.Size = new System.Drawing.Size(268, 33);
             this.comboBox1.TabIndex = 12;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -198,7 +198,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(1124, 65);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(155, 20);
+            this.label5.Size = new System.Drawing.Size(179, 25);
             this.label5.TabIndex = 13;
             this.label5.Text = "Фильтровать по:";
             // 
@@ -214,7 +214,7 @@
             // 
             // Product
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1493, 624);
             this.Controls.Add(this.textBox1);

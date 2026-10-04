@@ -142,7 +142,7 @@ namespace PR32
                 failedAttempts = 0;
                 this.Hide();
 
-                Product mainForm = new Product();
+                PO mainForm = new PO();
                 mainForm.ShowDialog();
 
                 this.Close(); 

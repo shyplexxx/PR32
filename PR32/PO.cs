@@ -21,7 +21,7 @@ namespace PR32
             InitializeComponent();
         }
         DataTable cartTable = new DataTable();
-        decimal totalSum = 0;
+        decimal totalSum;
         decimal totalDiscountSum = 0;
 
         List<CartItem> cartList = new List<CartItem>();
@@ -86,6 +86,7 @@ namespace PR32
             if (existingItem != null)
             {
                 existingItem.ProductCount += count;
+                
             }
             else
             {
@@ -105,11 +106,44 @@ namespace PR32
 
         }
 
+        private void FillClientComboBox()
+        {
+            string sql = "SELECT UserID, CONCAT_WS(' ', UserSourname, UserName, UserPpatronymic) AS UserFullName FROM user;";
+            string q = $@"server=127.0.0.1;user=root;password=root;database=db22;";
+
+
+            using (MySqlConnection conn = new MySqlConnection(q))
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlDataAdapter ada = new MySqlDataAdapter(sql, conn))
+                    {
+                        DataTable dt = new DataTable();
+                        ada.Fill(dt);
+
+                        DataRow newRow = dt.NewRow();
+                        newRow["UserID"] = DBNull.Value;
+                        newRow["UserFullName"] = "Выбрать клиента (Режим гостя)";
+                        dt.Rows.InsertAt(newRow, 0);
+                        comboBox1.DataSource = dt;
+                        comboBox1.ValueMember = "UserID";
+                        comboBox1.DisplayMember = "UserFullName";
+                        comboBox1.SelectedIndex = 0;
+                    }
+                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}");
+                }
+            }
+        }
 
         private void UpdateCartGrid()
         {
             dataGridView2.DataSource = null;
             dataGridView2.DataSource = cartList;
+            Summ();
 
             dataGridView2.Columns["ProductArticle"].HeaderText = "Артиккул";
             dataGridView2.Columns["ProductName"].HeaderText = "Наименование";
@@ -117,20 +151,28 @@ namespace PR32
             dataGridView2.Columns["ProductCost"].HeaderText = "Цена";
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            totalSum = 0;
+           
+
+        }
+        
+        private void Summ()
+        {
+            decimal total = 0;
+
             foreach (var item in cartList)
             {
-                totalSum = totalSum * item.ProductCount;
+                total += item.ProductCost * item.ProductCount;
             }
 
-            label2.Text = $"Общая сумма закза - {Convert.ToString(totalSum)}";
-
+            label2.Text = $"Общая сумма закза - {total}";
         }
 
         private void PO_Load(object sender, EventArgs e)
         {
             
             LoadProducts();
+            FillClientComboBox();
+            label3.Text = SessionManager.CurrentUserFullName;
         }
 
         string server = Settings.Default.host;
@@ -190,6 +232,11 @@ namespace PR32
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

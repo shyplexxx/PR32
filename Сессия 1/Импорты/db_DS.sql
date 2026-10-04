@@ -297,6 +297,11 @@ INSERT INTO `user` VALUES (1,'Герасимов','Вячеслав','Рости
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DELETE FROM `db22`.`user` WHERE (`UserID` > '50');
+
+
+
+
 --
 -- Dumping events for database 'db22'
 --

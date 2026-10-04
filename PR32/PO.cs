@@ -26,7 +26,8 @@ namespace PR32
 
         List<CartItem> cartList = new List<CartItem>();
 
-
+        int key = 0;
+        int drop;
         private void AddToCart()
         {
             if (dataGridView1.CurrentRow == null) return;
@@ -35,7 +36,18 @@ namespace PR32
             var row = dataGridView1.CurrentRow;
             string article = row.Cells["ProductArticle"].Value.ToString();
 
-            int key = 0;
+
+            drop = 0;
+            foreach(var item in cartList)
+            {
+                if(item.ProductArticle == article)
+                {
+                    drop = item.ProductCount;
+                }
+            }
+
+
+
             string sql = $@"Select ProductCountWH FROM product WHERE ProductArticle = '{article}'";
 
             string q = $"server={server};user={user};password={password};database={db}";
@@ -48,6 +60,7 @@ namespace PR32
                     if (kk != null && kk != DBNull.Value)
                     {
                         key = Convert.ToInt32(kk);
+                        key = key - drop;
                     }
                 }
                 
@@ -59,6 +72,7 @@ namespace PR32
             {
                 count = parsedCount;
             }
+            
 
             if (count > key)
             {
@@ -66,6 +80,7 @@ namespace PR32
                 textBox2.Text = "";
                 return;
             }
+  
             CartItem existingItem = cartList.FirstOrDefault(item => item.ProductArticle == article);
 
             if (existingItem != null)
@@ -83,7 +98,7 @@ namespace PR32
                     ProductCount = count
                 });
             }
-
+    
 
 
             UpdateCartGrid();

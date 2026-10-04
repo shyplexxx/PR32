@@ -103,6 +103,8 @@ namespace PR32
 
 
             UpdateCartGrid();
+            button3.Visible = true;
+            button3.Enabled = true;
 
         }
 
@@ -151,6 +153,12 @@ namespace PR32
             dataGridView2.Columns["ProductCost"].HeaderText = "Цена";
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            if(cartList.Count == 0)
+            {
+                button3.Visible = false;
+                button3.Enabled = false;
+            }
+
            
 
         }
@@ -173,6 +181,8 @@ namespace PR32
             LoadProducts();
             FillClientComboBox();
             label3.Text = SessionManager.CurrentUserFullName;
+            button3.Enabled = false;
+            button3.Visible = false;
         }
 
         string server = Settings.Default.host;
@@ -276,6 +286,11 @@ namespace PR32
                 // 6. Перерисовываем корзину и заново пересчитываем итоговую сумму
                 UpdateCartGrid();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

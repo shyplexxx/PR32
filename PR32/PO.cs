@@ -183,6 +183,7 @@ namespace PR32
             label3.Text = SessionManager.CurrentUserFullName;
             button3.Enabled = false;
             button3.Visible = false;
+            
         }
 
         string server = Settings.Default.host;
@@ -255,42 +256,130 @@ namespace PR32
         {
             if (dataGridView2.CurrentRow == null) return;
 
-            // 2. Берем артикул выделенного в корзине товара
+            
             var row = dataGridView2.CurrentRow;
             string article = row.Cells["ProductArticle"].Value.ToString();
 
-            // 3. Ищем этот товар в нашем списке корзины (cartList)
+           
             CartItem itemToRemove = cartList.FirstOrDefault(item => item.ProductArticle == article);
 
             if (itemToRemove != null)
             {
-                // 4. Если у товара количество больше 1 — просто уменьшаем на 1 штуку
+               
                 if (itemToRemove.ProductCount > 1)
                 {
-                    itemToRemove.ProductCount -= 1; // Убрали один из корзины
+                    itemToRemove.ProductCount -= 1; 
                 }
                 else
                 {
-                    // Если оставалась всего 1 штука — удаляем товар из списка корзины полностью
+                    
                     cartList.Remove(itemToRemove);
                 }
 
-                // 5. ТВОЯ ЛОГИКА ВОЗВРАТА НА СКЛАД: 
-                // Мы возвращаем +1 к нашей переменной запаса (key), чтобы этот лимит снова стал доступен!
+               
                 key = key + 1;
 
-                // Если у тебя используется переменная drop, сбрасываем её в текущее количество, 
-                // чтобы при следующем клике "Добавить" код корректно пересчитал разницу
+                
                 drop = itemToRemove.ProductCount;
 
-                // 6. Перерисовываем корзину и заново пересчитываем итоговую сумму
+                
                 UpdateCartGrid();
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (cartList.Count == 0)
+            {
+                MessageBox.Show("Корзина пуста!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (comboBox1.SelectedIndex == 0 || comboBox1.SelectedValue == DBNull.Value)
+            {
+                MessageBox.Show("Необходимо выбрать клиента или войти под учетной записью!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             
+            Random rand = new Random();
+            int randomCode = rand.Next(100, 1000);
+
+            string q = $"server={server};user={user};password={password};database={db};AllowPublicKeyRetrieval=True;";
+
+            using (MySqlConnection my = new MySqlConnection(q))
+            {
+                try
+                {
+                    my.Open();
+
+                    
+                    int nextOrderID = 1;
+                    string idSql = "SELECT IFNULL(MAX(OrderID), 0) + 1 FROM `order`;";
+
+                    using (MySqlCommand idCmd = new MySqlCommand(idSql, my))
+                    {
+                        object maxId = idCmd.ExecuteScalar();
+                        if (maxId != null && maxId != DBNull.Value)
+                        {
+                            nextOrderID = Convert.ToInt32(maxId);
+                        }
+                    }
+
+                    
+                    string orderSql = @"INSERT INTO `order` (OrderID, OrderDateOrder, OrderDateDel, OrderDelivery, OrderClient, OrderCode, OrderStatus) 
+                                VALUES (@id, NOW(), DATE_ADD(NOW(), INTERVAL 3 DAY), 10, @client, @code, 1);";
+
+                    using (MySqlCommand orderCmd = new MySqlCommand(orderSql, my))
+                    {
+                        orderCmd.Parameters.AddWithValue("@id", nextOrderID);
+                        orderCmd.Parameters.AddWithValue("@client", comboBox1.SelectedValue);
+                        orderCmd.Parameters.AddWithValue("@code", randomCode);
+                        orderCmd.ExecuteNonQuery();
+                    }
+
+                    
+                    foreach (var item in cartList)
+                    {
+                        
+                        string productSql = @"INSERT INTO orderproduct (OrderProductID, OrderProductAtricle, OrderProductCount) 
+                                      VALUES (@orderId, @article, @count);";
+
+                        using (MySqlCommand productCmd = new MySqlCommand(productSql, my))
+                        {
+                            productCmd.Parameters.AddWithValue("@orderId", nextOrderID);
+                            productCmd.Parameters.AddWithValue("@article", item.ProductArticle);
+                            productCmd.Parameters.AddWithValue("@count", item.ProductCount);
+                            productCmd.ExecuteNonQuery();
+                        }
+
+                        
+                        string updateWhSql = @"UPDATE product 
+                                       SET ProductCountWH = ProductCountWH - @count 
+                                       WHERE ProductArticle = @article;";
+
+                        using (MySqlCommand whCmd = new MySqlCommand(updateWhSql, my))
+                        {
+                            whCmd.Parameters.AddWithValue("@count", item.ProductCount);
+                            whCmd.Parameters.AddWithValue("@article", item.ProductArticle);
+                            whCmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    
+                    MessageBox.Show($"Заказ №{nextOrderID} успешно оформлен!\nКод получения: {randomCode}\nПункт выдачи: №10",
+                                    "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                   
+                    cartList.Clear();
+                    UpdateCartGrid();
+                    LoadProducts(textBox2.Text.Trim()); 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка сохранения заказа: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -240,5 +240,42 @@ namespace PR32
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow == null) return;
+
+            // 2. Берем артикул выделенного в корзине товара
+            var row = dataGridView2.CurrentRow;
+            string article = row.Cells["ProductArticle"].Value.ToString();
+
+            // 3. Ищем этот товар в нашем списке корзины (cartList)
+            CartItem itemToRemove = cartList.FirstOrDefault(item => item.ProductArticle == article);
+
+            if (itemToRemove != null)
+            {
+                // 4. Если у товара количество больше 1 — просто уменьшаем на 1 штуку
+                if (itemToRemove.ProductCount > 1)
+                {
+                    itemToRemove.ProductCount -= 1; // Убрали один из корзины
+                }
+                else
+                {
+                    // Если оставалась всего 1 штука — удаляем товар из списка корзины полностью
+                    cartList.Remove(itemToRemove);
+                }
+
+                // 5. ТВОЯ ЛОГИКА ВОЗВРАТА НА СКЛАД: 
+                // Мы возвращаем +1 к нашей переменной запаса (key), чтобы этот лимит снова стал доступен!
+                key = key + 1;
+
+                // Если у тебя используется переменная drop, сбрасываем её в текущее количество, 
+                // чтобы при следующем клике "Добавить" код корректно пересчитал разницу
+                drop = itemToRemove.ProductCount;
+
+                // 6. Перерисовываем корзину и заново пересчитываем итоговую сумму
+                UpdateCartGrid();
+            }
+        }
     }
 }
